@@ -12,6 +12,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BulkyBook.DataAccess", "Bul
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BulkyBook.Models", "BulkyBook.Models\BulkyBook.Models.csproj", "{2BC2F429-9F76-4EE0-AF4F-5B1EFA84113C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{FF99B71F-5308-4DA3-A715-8DF3B2D1A6C5} = {FF99B71F-5308-4DA3-A715-8DF3B2D1A6C5}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BulkyBook.Utilities", "BulkyBook.Utilities\BulkyBook.Utilities.csproj", "{FF99B71F-5308-4DA3-A715-8DF3B2D1A6C5}"
 EndProject
