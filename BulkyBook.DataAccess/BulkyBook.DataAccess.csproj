@@ -24,6 +24,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="..\BulkyBook\wwwroot\js\category.js" Link="category.js" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\BulkyBook.Models\BulkyBook.Models.csproj" />
   </ItemGroup>
 
