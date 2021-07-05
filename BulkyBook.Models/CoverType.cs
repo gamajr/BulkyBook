@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace BulkyBook.Models
 {
-    public class Category
+    public class CoverType
     {
         [Key]
         public int Id { get; set; }
 
-        [Display(Name = "Category Name")]
+        [Display(Name = "Cover Name")]
         [Required]
         [MaxLength(50)]
-        public string  Name { get; set; }
+        public string Name { get; set; }
     }
 }

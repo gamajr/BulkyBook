@@ -1,4 +1,5 @@
 ﻿using System;
+using BulkyBook.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,7 @@ namespace BulkyBook.DataAccess.Repository.IRepository
 {
     public interface IUnitOfWork : IDisposable
     {
+        ICoverTypeRepository CoverType { get; }
         ICategoryRepository Category { get; }
 
         ISP_Call SP_Call { get;  }
