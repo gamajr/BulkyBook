@@ -26,12 +26,14 @@ namespace BulkyBook.Areas.Admin.Controllers
 
         public IActionResult Upsert(int? id)
         {
+            DynamicParameters parameter = new DynamicParameters();
             CoverType coverType = new CoverType();
             if (id == null)
             {
                 return View(coverType);
             }
-            coverType = _unitOfWork.CoverType.Get(id.GetValueOrDefault());
+            parameter.Add("@Id", id);
+            coverType = _unitOfWork.SP_Call.OneRecord<CoverType>(SD.Proc_CoverType_Get, parameter);
 
             if (coverType == null)
             {
@@ -71,19 +73,19 @@ namespace BulkyBook.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var allObj = _unitOfWork.CoverType.GetAll();
+            var allObj = _unitOfWork.SP_Call.List<CoverType>(SD.Proc_CoverType_GetAll, null);
             return Json(new { data = allObj });
         }
         [HttpDelete]
         public IActionResult Delete(int id)
         {
             var parameter = new DynamicParameters();
-            var objFromDb = _unitOfWork.CoverType.Get(id);
+            parameter.Add("@Id", id);
+            var objFromDb = _unitOfWork.SP_Call.OneRecord<CoverType>(SD.Proc_CoverType_Get, parameter);
             if (objFromDb == null)
             {
                 return Json(new { success = false, message = "Error when deleting." }); 
             }
-            parameter.Add("@Id", id);
             _unitOfWork.SP_Call.Execute(SD.Proc_CoverType_Delete, parameter);
             _unitOfWork.Save();
             return Json(new { success = true, message = "Delete successfull." });
