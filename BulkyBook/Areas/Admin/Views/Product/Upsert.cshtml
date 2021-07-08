@@ -7,7 +7,8 @@
 <form method="post" enctype="multipart/form-data">
     <div class="row p-3 border">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        @if (Model.Product.Id!=0){
+        @if (Model.Product.Id != 0)
+        {
             title = "Edit Product";
             <input type="hidden" asp-for="Product.Id" />
         }
@@ -120,48 +121,49 @@
                     }
                     else
                     {
-                    <div class="row">
-                        <div class="col">
-                            <button type="submit" onclick="return validateInput();" class="btn btn-primary form-control">Create</button>
+                        <div class="row">
+                            <div class="col">
+                                <button type="submit" onclick="return validateInput();" class="btn btn-primary form-control">Create</button>
 
+                            </div>
+                            <div class="col">
+                                <a asp-action="Index" class="btn btn-success form-control">Back to List</a>
+                            </div>
                         </div>
-                        <div class="col">
-                            <a asp-action="Index" class="btn btn-success form-control">Back to List</a>
-                        </div>
-                    </div>
                     }
 
                 </div>
             </div>
         </div>
         @if (Model.Product.Id != 0)
-            {
-                <div class="col-3 offset-1 pt-4">
-                    <img src="@Model.Product.ImageUrl" width="90%" style="border-radius:5px; border:1px solid #bbb9b9" />
-                </div> 
-            }
-        
+        {
+            <div class="col-3 offset-1 pt-4">
+                <img src="@Model.Product.ImageUrl" width="90%" style="border-radius:5px; border:1px solid #bbb9b9" />
+            </div>
+        }
+
     </div>
 </form>
 
-@section Scripts{ 
-<partial name="_ValidationScriptsPartial" />
-<script src="https://cdn.tiny.cloud/1/i5epqghno1inmb043t1r8f4szywpi0cbsjt4ww1qgf6pffqd/tinymce/5/tinymce.min.js"></script>
-<script>
-    tinymce.init({
-        selector: 'textarea',
-        plugins: 'lists',
-        menubar: 'file edit format'
-    });
+@section Scripts{
+    <script src="https://cdn.tiny.cloud/1/i5epqghno1inmb043t1r8f4szywpi0cbsjt4ww1qgf6pffqd/tinymce/5/tinymce.min.js"></script>
+    <partial name="_ValidationScriptsPartial" />
 
-    function validateInput(){
-        if (document.getElementById("uploadBox").value == "") {
-            swal("Error", "Please select an image", "error");
-            return false;
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            plugins: 'lists',
+            menubar: 'file edit format'
+        });
+
+        function validateInput() {
+            if (document.getElementById("uploadBox").value == "") {
+                swal("Error", "Please select an image", "error");
+                return false;
+            }
+            return true;
         }
-        return true;
-    }
-</script>
+    </script>
 }
 
 

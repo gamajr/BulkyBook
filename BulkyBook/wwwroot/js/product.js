@@ -9,14 +9,15 @@ function loadDataTable() {
     //Nunca esquecer a caralha do #
     dataTable = $('#tblData').dataTable({  
         "ajax": {
-            "url": "/Admin/Product/GetAll"
+            "url": "/Admin/Product/GetAll",
+            "datatype": "JSON"
 
         },
         "columns": [
-            { "data": "title", "width": "15%" },
+            { "data": "title", "width": "15%" },                  
             { "data": "author", "width": "15%" },
+            { "data": "isbn", "width": "15%" },            
             { "data": "price", "width": "15%" },
-            { "data": "isbn", "width": "15%" },
             { "data": "category.name", "width": "15%" },
             {
                 "data": "id",

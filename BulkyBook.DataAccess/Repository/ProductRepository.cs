@@ -33,7 +33,8 @@ namespace BulkyBook.DataAccess.Repository
                 objFromDb.Price100 = product.Price100;
                 objFromDb.CategoryId = product.CategoryId;
                 objFromDb.CoverTypeId = product.CoverTypeId;
-                
+                objFromDb.ImageUrl = product.ImageUrl;
+
             }
 
         }
