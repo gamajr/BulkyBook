@@ -122,6 +122,7 @@ namespace BulkyBook.Areas.Identity.Pages.Account
                     State = Input.State,
                     PostalCode = Input.PostalCode,
                     PhoneNumber = Input.PhoneNumber,
+                    Role = Input.Role
 
                 };
                 var result = await _userManager.CreateAsync(user, Input.Password);
