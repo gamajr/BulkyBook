@@ -42,6 +42,17 @@ namespace BulkyBook
             services.AddControllersWithViews();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddRazorPages();
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = $"/Identity/Account/Login";
+                options.LogoutPath = $"/Identity/Account/Logout";
+                options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
+            });
+            services.AddAuthentication().AddGoogle(options =>
+            {
+                options.ClientId = "177457064460-ld074ibvqq2esomkkri98ier3vnihnra.apps.googleusercontent.com";
+                options.ClientSecret = "bu0hp9kWFSTJI-ZaqtKrIp4M";
+            });
 
         }
 
