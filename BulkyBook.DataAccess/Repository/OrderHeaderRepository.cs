@@ -9,12 +9,21 @@ using System.Threading.Tasks;
 
 namespace BulkyBook.DataAccess.Repository
 {
-    public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicationUserRepository
+    public class OrderHeaderRepository: Repository<OrderHeader>, IOrderHeaderRepository 
     {
         private readonly ApplicationDbContext _db;
-        public ApplicationUserRepository(ApplicationDbContext db) : base(db)
+        public OrderHeaderRepository(ApplicationDbContext db) : base(db)
         {
             _db = db;
-        }       
+        }
+            
+
+        public void Update(OrderHeader orderHeader)
+        {
+            _db.Update(orderHeader);
+
+        }
+
+        
     }
 }
