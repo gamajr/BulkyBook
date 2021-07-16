@@ -53,6 +53,12 @@ namespace BulkyBook
                 options.ClientId = "177457064460-ld074ibvqq2esomkkri98ier3vnihnra.apps.googleusercontent.com";
                 options.ClientSecret = "bu0hp9kWFSTJI-ZaqtKrIp4M";
             });
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
 
         }
 
@@ -74,7 +80,7 @@ namespace BulkyBook
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseSession();
             app.UseAuthentication();
             app.UseAuthorization();
 

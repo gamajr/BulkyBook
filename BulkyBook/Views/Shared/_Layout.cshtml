@@ -1,4 +1,6 @@
-﻿@using BulkyBook.Utilities; 
+﻿@using BulkyBook.Utilities 
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAcessor
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -54,6 +56,25 @@
                                     <a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="Index">Users</a>
                                 </div>
                             </li>
+                        }
+                        @if (HttpContextAcessor.HttpContext.Session.GetInt32(SD.ssShoppingCart) != null)
+                        {
+                            <li style="color:white;">
+                                <a asp-area="Customer" asp-controller="Cart" asp-action="Index" class="nav-link">
+                                    @{ 
+                                        var count = HttpContextAcessor.HttpContext.Session.GetInt32(SD.ssShoppingCart);
+                                    }
+                                    <i class="fas fa-shopping-cart"> &nbsp; (@count)</i>
+                                </a>
+                            </li>
+                        }
+                        else 
+                        {
+                            <li style="color:white;">
+                                <a href="#" class="nav-link">
+                                    <i class="fas fa-shopping-cart"> &nbsp; (0)</i>
+                                </a>
+                            </li>             
                         }
                     </ul>
                     <partial name="_LoginPartial" />

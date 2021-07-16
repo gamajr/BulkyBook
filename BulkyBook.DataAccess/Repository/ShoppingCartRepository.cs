@@ -20,12 +20,7 @@ namespace BulkyBook.DataAccess.Repository
 
         public void Update(ShoppingCart shoppingCart)
         {
-            var objFromDb = _db.Categories.FirstOrDefault(s => s.Id == shoppingCart.Id);
-            if (objFromDb != null)
-            {
-                objFromDb.Name = shoppingCart.Name;
-                
-            }
+            _db.ShoppingCarts.Update(shoppingCart);
 
         }
 

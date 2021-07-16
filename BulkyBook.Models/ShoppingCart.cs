@@ -22,21 +22,9 @@ namespace BulkyBook.Models
         public int ProductId { get; set; }
         [ForeignKey("ProductId")]
         public Product Product { get; set; }
-        [Range(1,500, ErrorMessage= "Please enter a number between 1 and 500")]
+        [Range(1, 500, ErrorMessage = "Please enter a number between 1 and 500")]
         public int Count { get; set; }
         [NotMapped]
         public double Price { get; set; }
-        public string PaymentStatus { get; set; }
-        public DateTime PaymentDate { get; set; }
-        public DateTime PaymentDueDate { get; set; }
-        public string TransactionId { get; set; }
-        public string PhoneNumber { get; set; }
-        public string StreetAddress { get; set; }
-        public string City { get; set; }
-        public string State { get; set; }
-        public string PostalCode { get; set; }
-        public string Name { get; set; }
-
-
     }
 }
