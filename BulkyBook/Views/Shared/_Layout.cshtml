@@ -32,18 +32,18 @@
                         </li>
                         @if (User.IsInRole(SD.Role_Admin))
                         {
-						    <li class="nav-item dropdown">
-							    <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								    Content Management
-							    </a>
-							    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-								    <a class="dropdown-item" asp-area="Admin" asp-controller="Category" asp-action="Index">Categories</a>
-								    <a class="dropdown-item" asp-area="Admin" asp-controller="CoverType" asp-action="Index">CoverTypes</a>
-								    <a class="dropdown-item" asp-area="Admin" asp-controller="Product" asp-action="Index">Products</a>
-							  
-							    </div>
-							
-						    </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Content Management
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Category" asp-action="Index">Categories</a>
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="CoverType" asp-action="Index">CoverTypes</a>
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Product" asp-action="Index">Products</a>
+
+                                </div>
+
+                            </li>
                         }
                         @if (User.IsInRole(SD.Role_Admin) || User.IsInRole(SD.Role_Employee))
                         {
@@ -54,6 +54,16 @@
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" asp-area="Admin" asp-controller="Company" asp-action="Index">Companies</a>
                                     <a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="Index">Users</a>
+
+                                </div>
+                            </li>
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Finances
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Order" asp-action="Index">Orders</a>
                                 </div>
                             </li>
                         }
@@ -61,20 +71,21 @@
                         {
                             <li style="color:white;">
                                 <a asp-area="Customer" asp-controller="Cart" asp-action="Index" class="nav-link">
-                                    @{ 
+                                    @{
                                         var count = HttpContextAcessor.HttpContext.Session.GetInt32(SD.ssShoppingCart);
                                     }
                                     <i class="fas fa-shopping-cart"> &nbsp; (@count)</i>
                                 </a>
                             </li>
                         }
-                        else 
+                        else
                         {
                             <li style="color:white;">
                                 <a href="#" class="nav-link">
                                     <i class="fas fa-shopping-cart"> &nbsp; (0)</i>
                                 </a>
-                            </li>             
+                            </li>
+
                         }
                     </ul>
                     <partial name="_LoginPartial" />

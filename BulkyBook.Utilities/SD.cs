@@ -21,8 +21,19 @@ namespace BulkyBook.Utilities
         public const string Role_Admin = "Admin";
         public const string Role_Employee = "Employee";
 
-        public static string ssShoppingCart = "Shopping Cart Session";
+        public const string ssShoppingCart = "Shopping Cart Session";
 
+        public const string StatusPending = "Pending";
+        public const string StatusApproved = "Approved";
+        public const string StatusInProcess = "Processing";
+        public const string StatusShipped = "Shipped";
+        public const string StatusCancelled = "Cancelled";
+        public const string StatusRefunded = "Refunded";
+
+        public const string PaymentStatusPending = "Pending";
+        public const string PaymentStatusApproved = "Approved";
+        public const string PaymentStatusDelayedPayment = "ApprovedForDelayedPayment";
+        public const string PaymentStatusRejected = "Rejected";
         public static string ConvertToRawHtml(string source)
         {
             char[] array = new char[source.Length];

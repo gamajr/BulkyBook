@@ -118,6 +118,7 @@ namespace BulkyBook.Areas.Identity.Pages.Account
                     Email = Input.Email,
                     CompanyID = Input.CompanyID,
                     Name = Input.Name,
+                    City = Input.City,
                     StreetAddress = Input.StreetAddress,
                     State = Input.State,
                     PostalCode = Input.PostalCode,
