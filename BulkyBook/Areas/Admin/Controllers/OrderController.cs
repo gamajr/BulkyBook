@@ -34,6 +34,45 @@ namespace BulkyBook.Areas.Admin.Controllers
             return View(OrderVM);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [ActionName("Details")]
+
+        public IActionResult Details(string stripeToken)
+        {
+            OrderHeader orderHeader = _unitOfWork.OrderHeader.GetFirstOrDefault(u => u.Id == OrderVM.OrderHeader.Id,
+                                    includeProperties:"ApplicationUser");
+
+            if (stripeToken != null)
+            {
+                var options = new ChargeCreateOptions()
+                {
+                    Amount = Convert.ToInt32(orderHeader.OrderTotal) * 100,
+                    Currency = "brl",
+                    Description = "Order ID : " + orderHeader.Id,
+                    Source = stripeToken
+                };
+
+                var service = new ChargeService();
+                Charge charge = service.Create(options);
+                if (charge.BalanceTransactionId == null)
+                {
+                    orderHeader.PaymentStatus = SD.PaymentStatusRejected;
+                }
+                else
+                {
+                    orderHeader.TransactionId = charge.BalanceTransactionId;
+                }
+                if (charge.Status.ToLower() == "succeeded")
+                {
+                    orderHeader.PaymentStatus = SD.PaymentStatusApproved;                    
+                    orderHeader.PaymentDate = DateTime.Now;
+                }
+                _unitOfWork.Save();
+            }
+            return RedirectToAction("Details", "Order", new { id = orderHeader.Id });
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -47,6 +86,8 @@ namespace BulkyBook.Areas.Admin.Controllers
             _unitOfWork.Save();
             return RedirectToAction("Index");
         }
+
+
         [HttpPost]
         [Authorize(Roles = SD.Role_Admin + "," + SD.Role_Employee)]
         public IActionResult ShipOrder()

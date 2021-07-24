@@ -58,15 +58,20 @@
                                 </div>
                             </li>
 
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Finances
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Order" asp-action="Index">Orders</a>
-                                </div>
-                            </li>
+
                         }
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-area="Admin" asp-controller="Order" asp-action="Index" >
+                                @if (User.IsInRole(SD.Role_Admin) || User.IsInRole(SD.Role_Employee))
+                                {
+                                    <span>Manage Orders</span>
+                                }
+                                else 
+                                {
+                                    <span>Order History</span>
+                                } 
+                            </a>                            
+                        </li>
                         @if (HttpContextAcessor.HttpContext.Session.GetInt32(SD.ssShoppingCart) != null)
                         {
                             <li style="color:white;">

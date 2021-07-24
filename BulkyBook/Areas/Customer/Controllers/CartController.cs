@@ -197,9 +197,9 @@ namespace BulkyBook.Areas.Customer.Controllers
                     ShoppingCartVM.OrderHeader.OrderStatus = SD.StatusApproved;
                     ShoppingCartVM.OrderHeader.PaymentDate = DateTime.Now;
                 }
-                _unitOfWork.Save();
+                
             }
-
+            _unitOfWork.Save();
             return RedirectToAction("OrderConfirmation", "Cart", new { id = ShoppingCartVM.OrderHeader.Id });
                                                                    
         }
