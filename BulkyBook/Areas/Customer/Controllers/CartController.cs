@@ -12,6 +12,9 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Stripe;
+using Microsoft.Extensions.Options;
+using Twilio;
+using Twilio.Rest.Api.V2010.Account;
 
 namespace BulkyBook.Areas.Customer.Controllers
 {
@@ -23,12 +26,14 @@ namespace BulkyBook.Areas.Customer.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         [BindProperty]
         public ShoppingCartVM ShoppingCartVM { get; set; }
+        private TwilioSettings _twilioOptions { get; set; }
 
-        public CartController(IUnitOfWork unitOfWork, IEmailSender emailSender, UserManager<IdentityUser> userManager)
+        public CartController(IUnitOfWork unitOfWork, IEmailSender emailSender, UserManager<IdentityUser> userManager, IOptions<TwilioSettings> twilioOptions)
         {
             _unitOfWork = unitOfWork;
             _emailSender = emailSender;
             _userManager = userManager;
+            _twilioOptions = twilioOptions.Value;
         }        
         public IActionResult Index()
         {
@@ -205,6 +210,20 @@ namespace BulkyBook.Areas.Customer.Controllers
         }
         public IActionResult OrderConfirmation(int id)
         {
+            OrderHeader orderHeader = _unitOfWork.OrderHeader.GetFirstOrDefault(u => u.Id == id);
+            TwilioClient.Init(_twilioOptions.AccountSid, _twilioOptions.AuthToken);
+            try{
+                var message = MessageResource.Create(
+                    body: "Order placed on BulkyBook. Your Order ID:" + id,
+                    from: new Twilio.Types.PhoneNumber(_twilioOptions.PhoneNumber),
+                    to: new Twilio.Types.PhoneNumber("55024988359840")
+                    );
+
+            }
+            catch(Exception ex)
+            {       
+                
+            }
             return View(id);
         }
 
