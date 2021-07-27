@@ -1,9 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BulkyBook.Models.ViewModels
 {

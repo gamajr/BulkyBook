@@ -1,14 +1,11 @@
 ﻿using BulkyBook.DataAccess.Data;
-using BulkyBook.DataAccess.Repository.IRepository;
 using BulkyBook.Models;
 using BulkyBook.Utilities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace BulkyBook.Areas.Admin.Controllers
 {
@@ -25,7 +22,7 @@ namespace BulkyBook.Areas.Admin.Controllers
         public IActionResult Index()
         {
             return View();
-        }        
+        }
 
         #region API_CALLS
         [HttpGet]
@@ -34,7 +31,7 @@ namespace BulkyBook.Areas.Admin.Controllers
             var userList = _db.ApplicationUsers.Include(u => u.Company).ToList();
             var userRole = _db.UserRoles.ToList();
             var roles = _db.Roles.ToList();
-            foreach( var user in userList)
+            foreach (var user in userList)
             {
                 var roleId = userRole.FirstOrDefault(u => u.UserId == user.Id).RoleId;
                 user.Role = roles.FirstOrDefault(u => u.Id == roleId).Name;
@@ -53,11 +50,11 @@ namespace BulkyBook.Areas.Admin.Controllers
         public IActionResult LockUnlock([FromBody] string id)
         {
             var objFromDb = _db.ApplicationUsers.FirstOrDefault(u => u.Id == id);
-            if(objFromDb == null)
+            if (objFromDb == null)
             {
                 return Json(new { success = false, message = "Error while locking/unlocking" });
             }
-            if(objFromDb.LockoutEnd!=null && objFromDb.LockoutEnd > DateTime.Now)
+            if (objFromDb.LockoutEnd != null && objFromDb.LockoutEnd > DateTime.Now)
             {
                 objFromDb.LockoutEnd = DateTime.Now;
             }
@@ -68,7 +65,7 @@ namespace BulkyBook.Areas.Admin.Controllers
             _db.SaveChanges();
             return Json(new { success = true, message = "Operation Successfull" });
         }
-       
+
         #endregion
     }
 }

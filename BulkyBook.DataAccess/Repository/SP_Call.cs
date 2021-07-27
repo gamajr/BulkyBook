@@ -6,8 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BulkyBook.DataAccess.Repository
 {
@@ -52,7 +50,7 @@ namespace BulkyBook.DataAccess.Repository
                 var item1 = result.Read<T1>().ToList();
                 var item2 = result.Read<T2>().ToList();
                 sqlCon.Execute(procedureName, param, commandType: System.Data.CommandType.StoredProcedure);
-                if (item1!=null && item2 != null)
+                if (item1 != null && item2 != null)
                 {
                     return new Tuple<IEnumerable<T1>, IEnumerable<T2>>(item1, item2);
                 }
@@ -60,7 +58,7 @@ namespace BulkyBook.DataAccess.Repository
                 return new Tuple<IEnumerable<T1>, IEnumerable<T2>>(new List<T1>(), new List<T2>());
             }
         }
-        
+
 
         public T OneRecord<T>(string procedureName, DynamicParameters param = null)
         {

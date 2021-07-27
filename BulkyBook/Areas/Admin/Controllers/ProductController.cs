@@ -7,10 +7,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace BulkyBook.Areas.Admin.Controllers
 {
@@ -100,7 +98,7 @@ namespace BulkyBook.Areas.Admin.Controllers
 
                 }
             }
-            
+
             if (ModelState.IsValid)
             {
                 if (productVM.Product.Id == 0)
@@ -152,7 +150,7 @@ namespace BulkyBook.Areas.Admin.Controllers
             var objFromDb = _unitOfWork.Product.Get(id);
             if (objFromDb == null)
             {
-                return Json(new { success = false, message = "Error when deleting." }); 
+                return Json(new { success = false, message = "Error when deleting." });
             }
             string webRootPath = _hostEnvironment.WebRootPath;
             var imagePath = Path.Combine(webRootPath, objFromDb.ImageUrl.TrimStart('\\'));

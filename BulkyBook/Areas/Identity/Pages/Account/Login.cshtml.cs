@@ -1,19 +1,16 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text.Encodings.Web;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+using BulkyBook.DataAccess.Repository.IRepository;
+using BulkyBook.Utilities;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using BulkyBook.DataAccess.Repository.IRepository;
-using Microsoft.AspNetCore.Http;
-using BulkyBook.Utilities;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace BulkyBook.Areas.Identity.Pages.Account
 {
@@ -24,7 +21,7 @@ namespace BulkyBook.Areas.Identity.Pages.Account
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
         private readonly IUnitOfWork _unitOfWork;
-        public LoginModel(SignInManager<IdentityUser> signInManager, 
+        public LoginModel(SignInManager<IdentityUser> signInManager,
             ILogger<LoginModel> logger,
             UserManager<IdentityUser> userManager,
             IUnitOfWork unitOfWork)
@@ -81,7 +78,7 @@ namespace BulkyBook.Areas.Identity.Pages.Account
             returnUrl ??= Url.Content("~/");
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-        
+
             if (ModelState.IsValid)
             {
                 // This doesn't count login failures towards account lockout
@@ -89,7 +86,7 @@ namespace BulkyBook.Areas.Identity.Pages.Account
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
-                    var user = _unitOfWork.ApplicationUser.GetFirstOrDefault(u => u.Email==Input.Email);
+                    var user = _unitOfWork.ApplicationUser.GetFirstOrDefault(u => u.Email == Input.Email);
                     int count = _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == user.Id).Count();
                     HttpContext.Session.SetInt32(SD.ssShoppingCart, count);
                     _logger.LogInformation("User logged in.");

@@ -4,10 +4,6 @@ using BulkyBook.Utilities;
 using Dapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BulkyBook.Areas.Admin.Controllers
 {
@@ -56,7 +52,7 @@ namespace BulkyBook.Areas.Admin.Controllers
                 if (coverType.Id == 0)
                 {
                     _unitOfWork.SP_Call.Execute(SD.Proc_CoverType_Create, parameter);
-                    
+
                 }
                 else
                 {
@@ -86,7 +82,7 @@ namespace BulkyBook.Areas.Admin.Controllers
             var objFromDb = _unitOfWork.SP_Call.OneRecord<CoverType>(SD.Proc_CoverType_Get, parameter);
             if (objFromDb == null)
             {
-                return Json(new { success = false, message = "Error when deleting." }); 
+                return Json(new { success = false, message = "Error when deleting." });
             }
             _unitOfWork.SP_Call.Execute(SD.Proc_CoverType_Delete, parameter);
             _unitOfWork.Save();

@@ -1,9 +1,4 @@
 ﻿using System;
-using BulkyBook.Models;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BulkyBook.DataAccess.Repository.IRepository
 {
@@ -17,7 +12,7 @@ namespace BulkyBook.DataAccess.Repository.IRepository
         IOrderHeaderRepository OrderHeader { get; }
         IOrderDetailsRepository OrderDetails { get; }
         IApplicationUserRepository ApplicationUser { get; }
-        ISP_Call SP_Call { get;  }
+        ISP_Call SP_Call { get; }
 
         void Save();
 

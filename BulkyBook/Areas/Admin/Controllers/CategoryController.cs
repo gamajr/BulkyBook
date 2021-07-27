@@ -3,10 +3,6 @@ using BulkyBook.Models;
 using BulkyBook.Utilities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BulkyBook.Areas.Admin.Controllers
 {
@@ -50,7 +46,7 @@ namespace BulkyBook.Areas.Admin.Controllers
                 if (category.Id == 0)
                 {
                     _unitOfWork.Category.Add(category);
-                    
+
                 }
                 else
                 {
@@ -77,7 +73,7 @@ namespace BulkyBook.Areas.Admin.Controllers
             var objFromDb = _unitOfWork.Category.Get(id);
             if (objFromDb == null)
             {
-                return Json(new { success = false, message = "Error when deleting." }); 
+                return Json(new { success = false, message = "Error when deleting." });
             }
             _unitOfWork.Category.Remove(objFromDb);
             _unitOfWork.Save();

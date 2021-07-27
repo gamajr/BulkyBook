@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
 
 namespace BulkyBook.DataAccess.Repository
 {
@@ -65,8 +64,8 @@ namespace BulkyBook.DataAccess.Repository
                 {
                     query = query.Include(includeProp);
                 }
-            }     
-         
+            }
+
             return query.FirstOrDefault();
         }
 

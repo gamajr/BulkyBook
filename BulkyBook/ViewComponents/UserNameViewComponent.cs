@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using BulkyBook.DataAccess.Repository.IRepository;
+using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using BulkyBook.DataAccess.Repository.IRepository;
-using Microsoft.AspNetCore.Mvc;
 
 namespace BulkyBook.ViewComponents
 {
-    public class UserNameViewComponent:ViewComponent
+    public class UserNameViewComponent : ViewComponent
     {
         private readonly IUnitOfWork _unitOfWork;
         public UserNameViewComponent(IUnitOfWork unitOfWork)

@@ -3,15 +3,13 @@ using BulkyBook.Models;
 using BulkyBook.Models.ViewModels;
 using BulkyBook.Utilities;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace BulkyBook.Areas.Customer.Controllers
 {
@@ -19,7 +17,7 @@ namespace BulkyBook.Areas.Customer.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly IUnitOfWork _unitOfWork; 
+        private readonly IUnitOfWork _unitOfWork;
 
         public HomeController(ILogger<HomeController> logger, IUnitOfWork unitOfWork)
         {
@@ -62,8 +60,8 @@ namespace BulkyBook.Areas.Customer.Controllers
                 var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
                 CartObject.ApplicationUserId = claim.Value;
                 ShoppingCart cartFromDb = _unitOfWork.ShoppingCart.GetFirstOrDefault(
-                    u => u.ApplicationUserId == CartObject.ApplicationUserId && u.ProductId == CartObject.ProductId, 
-                    includeProperties:"Product"
+                    u => u.ApplicationUserId == CartObject.ApplicationUserId && u.ProductId == CartObject.ProductId,
+                    includeProperties: "Product"
                     );
                 if (cartFromDb == null)
                 {
@@ -73,7 +71,7 @@ namespace BulkyBook.Areas.Customer.Controllers
                 {
                     cartFromDb.Count += CartObject.Count;
                     _unitOfWork.ShoppingCart.Update(cartFromDb);
-                    
+
                 }
                 _unitOfWork.Save();
                 var count = _unitOfWork.ShoppingCart.GetAll(c => c.ApplicationUserId == CartObject.ApplicationUserId).ToList().Count();

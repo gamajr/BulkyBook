@@ -9,10 +9,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace BulkyBook.Areas.Admin.Controllers
-{    
+{
     [Area("Admin")]
     [Authorize]
     public class OrderController : Controller
@@ -41,7 +40,7 @@ namespace BulkyBook.Areas.Admin.Controllers
         public IActionResult Details(string stripeToken)
         {
             OrderHeader orderHeader = _unitOfWork.OrderHeader.GetFirstOrDefault(u => u.Id == OrderVM.OrderHeader.Id,
-                                    includeProperties:"ApplicationUser");
+                                    includeProperties: "ApplicationUser");
 
             if (stripeToken != null)
             {
@@ -65,7 +64,7 @@ namespace BulkyBook.Areas.Admin.Controllers
                 }
                 if (charge.Status.ToLower() == "succeeded")
                 {
-                    orderHeader.PaymentStatus = SD.PaymentStatusApproved;                    
+                    orderHeader.PaymentStatus = SD.PaymentStatusApproved;
                     orderHeader.PaymentDate = DateTime.Now;
                 }
                 _unitOfWork.Save();
@@ -78,7 +77,7 @@ namespace BulkyBook.Areas.Admin.Controllers
             return View();
         }
 
-        [Authorize(Roles=SD.Role_Admin+","+SD.Role_Employee)]
+        [Authorize(Roles = SD.Role_Admin + "," + SD.Role_Employee)]
         public IActionResult StartProcessing(int id)
         {
             OrderHeader orderHeader = _unitOfWork.OrderHeader.GetFirstOrDefault(u => u.Id == id);
@@ -106,7 +105,7 @@ namespace BulkyBook.Areas.Admin.Controllers
         public IActionResult CancelOrder(int id)
         {
             OrderHeader orderHeader = _unitOfWork.OrderHeader.GetFirstOrDefault(u => u.Id == id);
-            if(orderHeader.PaymentStatus == SD.PaymentStatusApproved)
+            if (orderHeader.PaymentStatus == SD.PaymentStatusApproved)
             {
                 var option = new RefundCreateOptions
                 {
@@ -121,8 +120,8 @@ namespace BulkyBook.Areas.Admin.Controllers
             {
                 orderHeader.PaymentStatus = SD.StatusCancelled;
                 orderHeader.OrderStatus = SD.StatusCancelled;
-                
-            }            
+
+            }
             _unitOfWork.Save();
             return RedirectToAction("Index");
         }
@@ -135,14 +134,14 @@ namespace BulkyBook.Areas.Admin.Controllers
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
             IEnumerable<OrderHeader> orderHeaderList;
-            
-            if(User.IsInRole(SD.Role_Admin) || User.IsInRole(SD.Role_Employee))
+
+            if (User.IsInRole(SD.Role_Admin) || User.IsInRole(SD.Role_Employee))
             {
                 orderHeaderList = _unitOfWork.OrderHeader.GetAll(includeProperties: "ApplicationUser");
             }
             else
             {
-                orderHeaderList = _unitOfWork.OrderHeader.GetAll(u=>u.ApplicationUserId==claim.Value, includeProperties: "ApplicationUser");
+                orderHeaderList = _unitOfWork.OrderHeader.GetAll(u => u.ApplicationUserId == claim.Value, includeProperties: "ApplicationUser");
             }
             switch (status)
             {

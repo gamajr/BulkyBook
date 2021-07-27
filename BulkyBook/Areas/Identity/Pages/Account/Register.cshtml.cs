@@ -1,11 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Text.Encodings.Web;
-using System.Threading.Tasks;
 using BulkyBook.DataAccess.Repository.IRepository;
 using BulkyBook.Models;
 using BulkyBook.Utilities;
@@ -16,8 +8,11 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace BulkyBook.Areas.Identity.Pages.Account
 {
@@ -96,13 +91,13 @@ namespace BulkyBook.Areas.Identity.Pages.Account
                     Text = i.Name,
                     Value = i.Id.ToString()
                 }),
-                RoleList = _roleManager.Roles.Where(u => u.Name != SD.Role_User_Indi).Select(x=>x.Name).Select(i => new SelectListItem
+                RoleList = _roleManager.Roles.Where(u => u.Name != SD.Role_User_Indi).Select(x => x.Name).Select(i => new SelectListItem
                 {
                     Text = i,
                     Value = i
                 }),
             };
-                        
+
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
 
@@ -112,9 +107,9 @@ namespace BulkyBook.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser 
-                { 
-                    UserName = Input.Email, 
+                var user = new ApplicationUser
+                {
+                    UserName = Input.Email,
                     Email = Input.Email,
                     CompanyID = Input.CompanyID,
                     Name = Input.Name,
@@ -131,7 +126,7 @@ namespace BulkyBook.Areas.Identity.Pages.Account
                 {
                     _logger.LogInformation("User created a new account with password.");
 
-                    if(!await _roleManager.RoleExistsAsync(SD.Role_Admin))
+                    if (!await _roleManager.RoleExistsAsync(SD.Role_Admin))
                     {
                         await _roleManager.CreateAsync(new IdentityRole(SD.Role_Admin));
                     }
@@ -153,7 +148,7 @@ namespace BulkyBook.Areas.Identity.Pages.Account
                     }
                     else
                     {
-                        if(user.CompanyID > 0)
+                        if (user.CompanyID > 0)
                         {
                             await _userManager.AddToRoleAsync(user, SD.Role_User_Comp);
                         }
