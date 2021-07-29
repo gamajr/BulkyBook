@@ -27,11 +27,12 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
+
                         @if (User.IsInRole(SD.Role_Admin))
                         {
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="Admin" asp-controller="BrainTree" asp-action="Index">BrainTree</a>
+                            </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Content Management
@@ -61,16 +62,16 @@
 
                         }
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="Admin" asp-controller="Order" asp-action="Index" >
+                            <a class="nav-link text-light" asp-area="Admin" asp-controller="Order" asp-action="Index">
                                 @if (User.IsInRole(SD.Role_Admin) || User.IsInRole(SD.Role_Employee))
                                 {
                                     <span>Manage Orders</span>
                                 }
-                                else 
+                                else
                                 {
                                     <span>Order History</span>
-                                } 
-                            </a>                            
+                                }
+                            </a>
                         </li>
                         @if (HttpContextAcessor.HttpContext.Session.GetInt32(SD.ssShoppingCart) != null)
                         {

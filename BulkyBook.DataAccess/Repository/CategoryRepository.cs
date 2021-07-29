@@ -2,10 +2,11 @@
 using BulkyBook.DataAccess.Repository.IRepository;
 using BulkyBook.Models;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BulkyBook.DataAccess.Repository
 {
-    public class CategoryRepository : Repository<Category>, ICategoryRepository
+    public class CategoryRepository : RepositoryAsync<Category>, ICategoryRepository
     {
         private readonly ApplicationDbContext _db;
         public CategoryRepository(ApplicationDbContext db) : base(db)
@@ -14,7 +15,7 @@ namespace BulkyBook.DataAccess.Repository
         }
 
 
-        public void Update(Category category)
+        public async Task UpdateAsync(Category category)
         {
             var objFromDb = _db.Categories.FirstOrDefault(s => s.Id == category.Id);
             if (objFromDb != null)
