@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BulkyBook.Utilities
 {
-    interface IBrainTreeGate
+    public interface IBrainTreeGate
     {
         IBraintreeGateway CreateGateway();
         IBraintreeGateway GetGateway();
