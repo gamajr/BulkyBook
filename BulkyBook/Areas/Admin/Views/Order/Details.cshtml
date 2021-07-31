@@ -194,7 +194,18 @@
                                     <div class="col-9">
                                         <input type="text" readonly class="form-control" />
                                     </div>
+
                                 </div>
+                                @if (User.IsInRole(SD.Role_Admin))
+                                {
+                                    <div class="row my-1">
+                                        <div class="col-12">
+                                            <input type="submit" value="Update Pickup Details" class="btn btn-warning form-control" formmethod="post" 
+                                                   formaction="/Admin/Order/UpdateOrderDetails"/>
+
+                                        </div>
+                                    </div>
+                                }
                             }
                         </div>
                         <div class="col-12 col-lg-5 offset-lg-1">
